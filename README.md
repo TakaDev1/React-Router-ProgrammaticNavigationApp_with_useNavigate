@@ -1,32 +1,109 @@
-# React + TypeScript + Vite
+# React-Router-ProgrammaticNavigationApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+`useNavigate`を使ったプログラムによるページ遷移を学習するReact Routerアプリです。
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+ボタンをクリックしたときに`useNavigate`を使用して、HomeページからAboutページへプログラムで遷移します。
 
-## React Compiler
+`Link`を使用せず、イベント処理からページ遷移を実行する方法を学習します。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Learning Goals
 
-## Expanding the Oxlint configuration
+* `useNavigate`の基本的な使い方
+* プログラムによるページ遷移
+* `navigate()`によるURL遷移
+* `Route`によるページの定義
+* `BrowserRouter` / `Routes` / `Route`の基本構成
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Page Structure
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+| Page  | URL      | Description         |
+| ----- | -------- | ------------------- |
+| Home  | `/`      | Aboutページへ移動するボタンを表示 |
+| About | `/about` | Aboutページを表示         |
+
+## Project Structure
+
+```text
+src/
+├── pages/
+│   ├── Home.tsx
+│   └── About.tsx
+├── App.tsx
+└── main.tsx
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### `pages/Home.tsx`
+
+Homeページを表示します。
+
+`useNavigate`を使用して、ボタンをクリックすると`/about`へ移動します。
+
+```tsx
+const navigate = useNavigate();
+
+<button onClick={() => navigate("/about")}>
+  Aboutへ移動
+</button>
+```
+
+### `pages/About.tsx`
+
+Aboutページを表示します。
+
+### `App.tsx`
+
+React Routerのルーティングを設定します。
+
+```tsx
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+  </Routes>
+</BrowserRouter>
+```
+
+## Navigation Flow
+
+```text
+Home (/)
+   │
+   │ Aboutへ移動
+   ↓
+About (/about)
+```
+
+## Key Concept
+
+### `useNavigate`
+
+`useNavigate`は、コンポーネント内のイベント処理などからプログラムによってページ遷移を行うためのHookです。
+
+```tsx
+const navigate = useNavigate();
+
+navigate("/about");
+```
+
+`Link`とは異なり、ボタンクリック後の処理やフォーム送信後など、**処理の結果としてページ遷移させたい場合**に利用できます。
+
+## Installation
+
+```bash
+npm install react-router
+```
+
+## Run
+
+```bash
+npm run dev
+```
+
+## Technologies
+
+* React
+* TypeScript
+* React Router
+* Vite
