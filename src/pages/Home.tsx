@@ -8,7 +8,12 @@ const Home = () => {
   return (
     <div>
       <p>Home</p>
-      <button onClick={handleNavigate}>Aboutへ移動</button>
+      <button
+        className="bg-gray-500 text-white cursor-pointer hover:opacity-80 transition rounded-full w-1/4 py-2 my-10"
+        onClick={handleNavigate}
+      >
+        Aboutへ移動
+      </button>
     </div>
   );
 };
